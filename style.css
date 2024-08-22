@@ -1,0 +1,70 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.screen {
+  width: vw;
+  height: 100vh;
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}
+
+.side-bar {
+  height: 100%;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem;
+  background-color: blue;
+}
+
+.profile-info {
+  height: 15%;
+}
+
+.tabs {
+  padding-bottom: rem;
+  height: 70%;
+}
+
+.log-out {
+  height: 15%;
+  padding: 2.4rem 0;
+}
+
+.dash-main {
+  height: 100%;
+  width: 85%;
+  background-color: brown;
+  padding: 1.2rem;
+}
+
+.dash-main .pri-head {
+  font-size: 1.6rem;
+}
+
+.dash-main .sec-head {
+  font-size: 0.8rem;
+}
+
+.boxes {
+  display: flex;
+  gap: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.box {
+  background-color: aqua;
+  padding: 0.6rem 0.8rem;
+  width: 7.2rem;
+  height: 7.2rem;
+}
