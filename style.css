@@ -6,6 +6,7 @@
 
 html {
   font-size: 62.5%;
+  font-family: "Inter", sans-serif;
 }
 
 .screen {
@@ -23,48 +24,98 @@ html {
   width: 15%;
   display: flex;
   flex-direction: column;
-  padding: 1.2rem;
-  background-color: blue;
+  padding: 2.4rem 1.2rem 0 1.2rem;
+  background-color: #fff;
+  color: #484848;
+  font-size: 1.4rem;
+  fill: #606060;
 }
 
 .profile-info {
   height: 15%;
+  /* color: #101010; */
 }
 
 .tabs {
   padding-bottom: rem;
   height: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
 }
 
 .log-out {
   height: 15%;
-  padding: 2.4rem 0;
+  padding-top: 2.4rem;
 }
 
 .dash-main {
   height: 100%;
   width: 85%;
   background-color: brown;
-  padding: 1.2rem;
+  padding: 2.4rem;
 }
 
 .dash-main .pri-head {
-  font-size: 1.6rem;
+  font-size: 2.4rem;
+  line-height: 1.5;
 }
 
 .dash-main .sec-head {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
+  padding-left: 0.4rem;
 }
 
 .boxes {
   display: flex;
-  gap: 1.2rem;
-  margin: 1.5rem 0;
+  gap: 3.6rem;
+  margin: 2.8rem 0;
 }
 
 .box {
   background-color: aqua;
   padding: 0.6rem 0.8rem;
-  width: 7.2rem;
-  height: 7.2rem;
+  width: 12rem;
+  height: 10rem;
+}
+
+.box .heading {
+}
+.box .amount {
+}
+.box .percent {
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0 0.5rem 0.8rem;
+  border-radius: 0.8rem;
+}
+
+.tab .logo {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.profile-info .logo {
+  height: 2.1rem;
+  width: 2.1rem;
+  fill: #fff;
+  background-color: #606060;
+  border-radius: 50%;
+}
+
+.tab:hover {
+  background-color: #389bff;
+  color: #fff;
+  fill: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.profile-info .tab:hover {
+  background-color: #fff;
+  color: #606060;
 }
