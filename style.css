@@ -29,6 +29,7 @@ html {
   color: #484848;
   font-size: 1.4rem;
   fill: #606060;
+  background-color: #fefefd;
 }
 
 .profile-info {
@@ -52,7 +53,7 @@ html {
 .dash-main {
   height: 100%;
   width: 85%;
-  background-color: brown;
+  /* background-color: brown; */
   padding: 2.4rem;
 }
 
@@ -63,6 +64,7 @@ html {
 
 .dash-main .sec-head {
   font-size: 1.2rem;
+  line-height: 2;
   padding-left: 0.4rem;
 }
 
@@ -74,16 +76,42 @@ html {
 
 .box {
   background-color: aqua;
-  padding: 0.6rem 0.8rem;
-  width: 12rem;
-  height: 10rem;
+  padding: 1.6rem 1.6rem;
+  width: 19rem;
+  height: 14.5rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .box .heading {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #202020;
 }
 .box .amount {
+  font-size: 3.5rem;
+  font-weight: 600;
 }
-.box .percent {
+.percent-green {
+  color: #008425;
+}
+
+.balance {
+  background-color: #eef6ff;
+}
+
+.credit {
+  background-color: #e2ffed;
+}
+
+.expense {
+  background-color: #ffefef;
+}
+
+.percent-red {
+  color: #ff3131;
 }
 
 .tab {
