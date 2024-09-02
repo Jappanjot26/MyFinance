@@ -147,3 +147,39 @@ html {
   background-color: #fff;
   color: #606060;
 }
+
+.graphs {
+  display: flex;
+  gap: 2.8rem;
+}
+
+.graphs .bar {
+  width: 55%;
+  /* background-color: #389bff; */
+  height: 28rem;
+}
+.graphs .pie {
+  width: 45%;
+  /* background-color: #008425; */
+}
+
+.graphs .bar .head,
+.graphs .pie .head {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+  font-size: 1.8rem;
+  align-items: center;
+}
+.graphs .bar .head .filter,
+.graphs .pie .head .filter {
+  font-size: 1.2rem;
+  border: 1px solid black;
+  padding: 2px;
+  border-radius: 4px;
+  background-color: rgb(245, 245, 245);
+}
+.graphs .bar .head .heading,
+.graphs .pie .head .heading {
+  font-weight: 600;
+}
