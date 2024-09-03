@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="dash-main">
+      <div class="dash-main hidden">
         <div class="pri-head">Welcome back, Jappanjot Singh</div>
         <div class="sec-head">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -101,11 +101,15 @@
           </div>
         </div>
       </div>
-      <div class="transaction-main hidden">
+      <div class="transaction-main">
         <div class="head">
           <div class="heading">Transaction</div>
           <div class="filters">
-            <div class="filter">filter</div>
+            <select name="Filter" class="filter">
+              <option value="">Filter</option>
+              <option value="expenses">Expenses</option>
+              <option value="credit">Credit</option>
+            </select>
             <div class="add">Add</div>
             <div class="remove">Remove</div>
           </div>
@@ -114,6 +118,7 @@
           <table>
             <thead>
               <tr>
+                <th>Select</th>
                 <th>Date</th>
                 <th>Transaction ID</th>
                 <th>Amount</th>
@@ -123,6 +128,13 @@
             </thead>
             <tbody>
               <tr>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="transaction"
+                    value="TXNID983274"
+                  />
+                </td>
                 <td>22/08/2024</td>
                 <td>TXNID983274</td>
                 <td>Rs. 449.000</td>
@@ -130,6 +142,13 @@
                 <td><span class="status-Credit">Credit</span></td>
               </tr>
               <tr>
+                <td>
+                  <input
+                    type="checkbox"
+                    name="transaction"
+                    value="TXNID983275"
+                  />
+                </td>
                 <td>22/08/2024</td>
                 <td>TXNID983275</td>
                 <td>Rs. 449.000</td>

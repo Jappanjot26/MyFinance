@@ -21,7 +21,7 @@ html {
 
 .side-bar {
   height: 100%;
-  width: 15%;
+  width: 18%;
   display: flex;
   flex-direction: column;
   padding: 2.4rem 1.2rem 0 1.2rem;
@@ -52,7 +52,7 @@ html {
 
 .dash-main {
   height: 100%;
-  width: 85%;
+  width: 82%;
   /* background-color: brown; */
   padding: 2.4rem;
 }
@@ -182,4 +182,61 @@ html {
 .graphs .bar .head .heading,
 .graphs .pie .head .heading {
   font-weight: 600;
+}
+
+/* Transaction */
+
+.transaction-main {
+  width: 82%;
+}
+.transaction-main .head {
+  margin: 2.4rem;
+  margin-left: 1.2rem;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: #78787849 2px solid;
+}
+.transaction-main .head .heading {
+  font-size: 2.2rem;
+  font-weight: 500;
+}
+.transaction-main .head .filters {
+  display: flex;
+  gap: 1.4rem;
+  font-size: 1.2rem;
+}
+.transaction-main .head .filters div {
+  padding: 0.4rem 1.2rem;
+  color: #fff;
+  border-radius: 4px;
+}
+.transaction-main .head .filters .filter {
+  background-color: #3a3d41;
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+}
+
+.transaction-main .head .filters .filter:hover,
+.transaction-main .head .filters .filter:active {
+  background-color: #46494e;
+}
+
+.transaction-main .head .filters .add {
+  background-color: #2ea141;
+}
+.transaction-main .head .filters .remove {
+  background-color: #da2a2a;
+}
+.transaction-main .head .filters .add:hover,
+.transaction-main .head .filters .add:active {
+  background-color: #31b046;
+}
+.transaction-main .head .filters .remove:hover,
+.transaction-main .head .filters .remove:active {
+  background-color: #e53232;
+}
+.transaction-main .transactions {
 }
