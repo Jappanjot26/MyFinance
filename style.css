@@ -211,8 +211,10 @@ html {
   padding: 0.4rem 1.2rem;
   color: #fff;
   border-radius: 4px;
+  cursor: pointer;
 }
 .transaction-main .head .filters .filter {
+  cursor: pointer;
   background-color: #3a3d41;
   border-radius: 4px;
   color: #fff;
@@ -239,4 +241,30 @@ html {
   background-color: #e53232;
 }
 .transaction-main .transactions {
+  margin: 2.4rem;
+  margin-left: 1.2rem;
+}
+
+.transaction-main .transactions table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transaction-main .transactions table th{
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #787878;
+  padding: 1.2rem 0;
+  text-align: left;
+  border-bottom: 1px solid #78787849;
+}
+
+.transaction-main .transactions table td{
+  font-size: 1.2rem;
+  padding: 1.2rem 0;
+  color: #484848;
+}
+
+.transaction-main .transactions table tr{
+  border-bottom: 1px solid #78787849;
 }
