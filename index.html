@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="tabs">
-          <div class="tab">
+          <div class="tab" id="dash-tab">
             <div class="logo">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
                 <path
@@ -38,7 +38,7 @@
             </div>
             <div class="text">Dashboard</div>
           </div>
-          <div class="tab">
+          <div class="tab" id="transaction-tab">
             <div class="logo">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
                 <path
@@ -105,13 +105,32 @@
         <div class="head">
           <div class="heading">Transaction</div>
           <div class="filters">
-            <select name="Filter" class="filter">
+            <!-- <select name="Filter" class="filter">
               <option value="">Filter</option>
               <option value="expenses">Expenses</option>
               <option value="credit">Credit</option>
-            </select>
+            </select> -->
             <div class="add">Add</div>
             <div class="remove">Remove</div>
+          </div>
+        </div>
+        <div class="add-transaction hidden">
+          <div class="details">
+            <input type="number" id="add-amount" placeholder="Amount (₹)" />
+            <select name="Category" id="add-category">
+              <option value="">Category</option>
+              <option value="food">Food</option>
+              <option value="clothes">Clothes</option>
+            </select>
+            <select name="Type" id="add-type">
+              <option value="">Type</option>
+              <option value="credit">Credit</option>
+              <option value="expense">Expense</option>
+            </select>
+          </div>
+          <div class="btns">
+            <div class="save-btn">Save</div>
+            <div class="cancel-btn">Cancel</div>
           </div>
         </div>
         <div class="transactions">
@@ -160,5 +179,6 @@
         </div>
       </div>
     </div>
+    <script src="index.js"></script>
   </body>
 </html>
