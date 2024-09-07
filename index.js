@@ -21,20 +21,19 @@ transactionTab.addEventListener("click", () => {
 });
 
 class Transaction {
-  #date = new Date();
   constructor(amount, category, type) {
-    this.date = this.formatDate();
-    this.id = this.#date.getTime();
+    let now = new Date();
+    this.date = this.formatDate(now);
+    this.id = now.getTime();
     this.amount = amount;
     this.category = category;
     this.type = type;
-    console.log(this.date, this.id, this.amount, this.category, this.type);
   }
 
-  formatDate() {
-    let date = this.#date.getDate();
-    let month = this.#date.getMonth() + 1;
-    const year = this.#date.getFullYear();
+  formatDate(anyDate) {
+    let date = anyDate.getDate();
+    let month = anyDate.getMonth() + 1;
+    const year = anyDate.getFullYear();
 
     date = date < 10 ? `0${date}` : date;
     month = month < 10 ? `0${month}` : month;
@@ -42,6 +41,30 @@ class Transaction {
     return `${date}/${month}/${year}`;
   }
 
-}
+  renderTransaction() {
+    const transactionRow = document.querySelector(".transactions table tbody");
+    console.log(transactionRow);
 
-const t1 = new Transaction(140, "food", "credit");
+    const html = `
+    <tr>
+        <td>
+          <input
+            type="checkbox"
+            name="transaction"
+            value="${this.id}"
+          />
+        </td>
+        <td>${this.date}</td>
+        <td>${this.id}</td>
+        <td>₹ ${this.amount}</td>
+        <td>${this.category[0].toUpperCase() + this.category.slice(1)}</td>
+        <td><span class="status-Credit">${
+          this.type[0].toUpperCase() + this.type.slice(1)
+        }
+          </span></td>
+    </tr>
+    `;
+    transactionRow.insertAdjacentHTML("beforeend", html);
+  }
+
+}
