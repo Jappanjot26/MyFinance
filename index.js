@@ -67,4 +67,25 @@ class Transaction {
     transactionRow.insertAdjacentHTML("beforeend", html);
   }
 
+  editTransaction() {
+    addMenu.classList.toggle("hidden");
+    const menuAmount = document.getElementById("add-amount");
+    const menuCategory = document.getElementById("add-category");
+    const menuType = document.getElementById("add-type");
+
+    menuAmount.value = this.amount;
+    menuCategory.value = this.category;
+    menuType.value = this.type;
+  }
 }
+
+const t1 = new Transaction(140, "food", "credit");
+t1.renderTransaction();
+setTimeout(() => {
+  const t2 = new Transaction(145, "clothes", "expense");
+  t2.renderTransaction();
+}, 100);
+setTimeout(() => {
+  const t3 = new Transaction(1500, "clothes", "expense");
+  t3.renderTransaction();
+}, 100);
