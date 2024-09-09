@@ -5,6 +5,8 @@ const transactionTab = document.querySelector("#transaction-tab");
 
 const addBtn = document.querySelector(".transaction-main .head .filters .add");
 const addMenu = document.querySelector(".transaction-main .add-transaction");
+const saveBtn = document.querySelector(".save-btn");
+const cancelBtn = document.querySelector(".cancel-btn");
 
 addBtn.addEventListener("click", () => {
   addMenu.classList.toggle("hidden");
@@ -18,6 +20,15 @@ dashTab.addEventListener("click", () => {
 transactionTab.addEventListener("click", () => {
   transactionMenu.classList.remove("hidden");
   dashboard.classList.add("hidden");
+});
+
+saveBtn.addEventListener("click", () => {
+  // saveTransaction();
+  addMenu.classList.add("hidden");
+});
+
+cancelBtn.addEventListener("click", () => {
+  addMenu.classList.add("hidden");
 });
 
 class Transaction {
@@ -68,7 +79,7 @@ class Transaction {
   }
 
   editTransaction() {
-    addMenu.classList.toggle("hidden");
+    addMenu.classList.remove("hidden");
     const menuAmount = document.getElementById("add-amount");
     const menuCategory = document.getElementById("add-category");
     const menuType = document.getElementById("add-type");
@@ -81,11 +92,10 @@ class Transaction {
 
 const t1 = new Transaction(140, "food", "credit");
 t1.renderTransaction();
-setTimeout(() => {
-  const t2 = new Transaction(145, "clothes", "expense");
-  t2.renderTransaction();
-}, 100);
-setTimeout(() => {
-  const t3 = new Transaction(1500, "clothes", "expense");
-  t3.renderTransaction();
-}, 100);
+const t2 = new Transaction(145, "clothes", "expense");
+t2.renderTransaction();
+
+const t3 = new Transaction(1500, "clothes", "expense");
+t3.renderTransaction();
+
+t3.editTransaction();
