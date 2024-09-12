@@ -2,6 +2,9 @@ const dashboard = document.querySelector(".dash-main");
 const transactionMenu = document.querySelector(".transaction-main");
 const dashTab = document.querySelector("#dash-tab");
 const transactionTab = document.querySelector("#transaction-tab");
+const menuAmount = document.getElementById("add-amount");
+const menuCategory = document.getElementById("add-category");
+const menuType = document.getElementById("add-type");
 
 const addBtn = document.querySelector(".transaction-main .head .filters .add");
 const addMenu = document.querySelector(".transaction-main .add-transaction");
@@ -11,10 +14,6 @@ const balanceAmount = document.querySelector(".balance .amount");
 const creditAmount = document.querySelector(".credit .amount");
 const expenseAmount = document.querySelector(".expense .amount");
 
-addBtn.addEventListener("click", () => {
-  addMenu.classList.toggle("hidden");
-});
-
 dashTab.addEventListener("click", () => {
   transactionMenu.classList.add("hidden");
   dashboard.classList.remove("hidden");
@@ -23,15 +22,6 @@ dashTab.addEventListener("click", () => {
 transactionTab.addEventListener("click", () => {
   transactionMenu.classList.remove("hidden");
   dashboard.classList.add("hidden");
-});
-
-saveBtn.addEventListener("click", () => {
-  // saveTransaction();
-  addMenu.classList.add("hidden");
-});
-
-cancelBtn.addEventListener("click", () => {
-  addMenu.classList.add("hidden");
 });
 
 const transactionRow = document.querySelector(".transactions table tbody");
@@ -46,6 +36,7 @@ class Transaction {
     this.category = category;
     this.type = type;
     transactionRow.addEventListener("click", this.editTransaction.bind(this));
+    addBtn.addEventListener("click", this.addTransaction);
   }
 
   formatDate(anyDate) {
@@ -78,7 +69,6 @@ class Transaction {
           </span></td>
     </tr>
     `;
-    transactions.push(this);
     transactionRow.insertAdjacentHTML("beforeend", html);
     this.calcAndDisplayAmounts();
   }
@@ -87,15 +77,48 @@ class Transaction {
     const id = e.target.closest("tr").dataset.id;
     addMenu.classList.remove("hidden");
 
-    const transaction = transactions.find((res) => res.id == id);
+    const target = transactions.find((res) => res.id == id);
+    menuAmount.value = target.amount;
+    menuCategory.value = target.category;
+    menuType.value = target.type;
 
-    const menuAmount = document.getElementById("add-amount");
-    const menuCategory = document.getElementById("add-category");
-    const menuType = document.getElementById("add-type");
+    saveBtn.addEventListener("click", () => {
+      addMenu.classList.add("hidden");
+      if (
+        menuAmount.value !== "" ||
+        menuCategory.value !== "" ||
+        menuType.value !== ""
+      ) {
+        target.amount = menuAmount.value;
+        target.type = menuType.value;
+        target.category = menuCategory.value;
+      }
+    });
+    cancelBtn.addEventListener("click", () => {
+      addMenu.classList.add("hidden");
+      menuAmount.value = menuCategory.value = menuType.value = "";
+    });
+  }
 
-    menuAmount.value = transaction.amount;
-    menuCategory.value = transaction.category;
-    menuType.value = transaction.type;
+  addTransaction() {
+    addMenu.classList.toggle("hidden");
+    saveBtn.addEventListener("click", () => {
+      addMenu.classList.add("hidden");
+      const t = new Transaction(
+        menuAmount.value,
+        menuCategory.value,
+        menuType.value
+      );
+      if (t.amount !== "" && t.category !== "" && t.type !== "") {
+        transactions.push(t);
+        t.renderTransaction();
+      }
+      menuAmount.value = menuCategory.value = menuType.value = "";
+    });
+    cancelBtn.addEventListener("click", () => {
+      addMenu.classList.add("hidden");
+      menuAmount.value = menuCategory.value = menuType.value = "";
+    });
   }
 
   calcAndDisplayAmounts() {
@@ -103,7 +126,9 @@ class Transaction {
       expense = 0,
       balance = 0;
     transactions.forEach((res) =>
-      res.type === "credit" ? (credit += res.amount) : (expense += res.amount)
+      res.type === "credit"
+        ? (credit += Number(res.amount))
+        : (expense += Number(res.amount))
     );
     balance = credit - expense;
     balanceAmount.textContent = balance;
@@ -113,7 +138,10 @@ class Transaction {
 }
 
 const t1 = new Transaction(170, "food", "credit");
-t1.renderTransaction();
-for (let i = 0; i < 100; i++) console.log("HELLO");
+transactions.push(t1);
 const t2 = new Transaction(145, "clothes", "expense");
-t2.renderTransaction();
+transactions.push(t2);
+
+transactions.forEach((res) => {
+  res.renderTransaction();
+});
