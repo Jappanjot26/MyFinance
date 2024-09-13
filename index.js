@@ -13,6 +13,8 @@ const cancelBtn = document.querySelector(".cancel-btn");
 const balanceAmount = document.querySelector(".balance .amount");
 const creditAmount = document.querySelector(".credit .amount");
 const expenseAmount = document.querySelector(".expense .amount");
+const removeBtn = document.querySelector(".remove");
+const checkbox = document.querySelector("#transaction-checked");
 
 dashTab.addEventListener("click", () => {
   transactionMenu.classList.add("hidden");
@@ -35,8 +37,10 @@ class Transaction {
     this.amount = amount;
     this.category = category;
     this.type = type;
+    this.check = false;
     transactionRow.addEventListener("click", this.editTransaction.bind(this));
     addBtn.addEventListener("click", this.addTransaction);
+    removeBtn.addEventListener("click", this.removeTransaction);
   }
 
   formatDate(anyDate) {
@@ -57,6 +61,7 @@ class Transaction {
           <input
             type="checkbox"
             name="transaction"
+            id="check-${this.id}"
           />
         </td>
         <td>${this.date}</td>
@@ -70,6 +75,12 @@ class Transaction {
     </tr>
     `;
     transactionRow.insertAdjacentHTML("beforeend", html);
+
+    const checkbox = document.getElementById(`check-${this.id}`);
+    checkbox.addEventListener("change", (event) => {
+      this.check = event.target.checked;
+    });
+
     this.calcAndDisplayAmounts();
   }
 
@@ -135,12 +146,30 @@ class Transaction {
     creditAmount.textContent = credit;
     expenseAmount.textContent = expense;
   }
+
+  removeTransaction() {
+    addMenu.classList.add("hidden");
+    let c = 0;
+    transactions = transactions.filter((res) => res.check === false);
+    transactionRow.innerHTML = "";
+
+    transactions.forEach((res) => {
+      res.renderTransaction();
+    });
+  }
 }
 
 const t1 = new Transaction(170, "food", "credit");
 transactions.push(t1);
+for (let i = 0; i < 100000000; i++);
 const t2 = new Transaction(145, "clothes", "expense");
 transactions.push(t2);
+for (let i = 0; i < 100000000; i++);
+const t3 = new Transaction(256, "clothes", "credit");
+transactions.push(t3);
+for (let i = 0; i < 100000000; i++);
+const t4 = new Transaction(15, "clothes", "expense");
+transactions.push(t4);
 
 transactions.forEach((res) => {
   res.renderTransaction();
