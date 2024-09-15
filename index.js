@@ -113,6 +113,7 @@ class Transaction {
 
   addTransaction() {
     addMenu.classList.toggle("hidden");
+    menuAmount.value = menuCategory.value = menuType.value = "";
     saveBtn.addEventListener("click", () => {
       addMenu.classList.add("hidden");
       const t = new Transaction(
@@ -142,9 +143,9 @@ class Transaction {
         : (expense += Number(res.amount))
     );
     balance = credit - expense;
-    balanceAmount.textContent = balance;
-    creditAmount.textContent = credit;
-    expenseAmount.textContent = expense;
+    balanceAmount.textContent = balance.toFixed(2);
+    creditAmount.textContent = credit.toFixed(2);
+    expenseAmount.textContent = expense.toFixed(2);
   }
 
   removeTransaction() {
@@ -156,6 +157,12 @@ class Transaction {
     transactions.forEach((res) => {
       res.renderTransaction();
     });
+
+    if (transactions.length === 0) {
+      balanceAmount.textContent = 0.00;
+      creditAmount.textContent = 0.00;
+      expenseAmount.textContent = 0.00;
+    }
   }
 }
 
