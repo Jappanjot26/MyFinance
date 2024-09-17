@@ -84,27 +84,9 @@ class Transaction {
     this.calcAndDisplayAmounts();
   }
 
-  editTransaction(e) {
-    const id = e.target.closest("tr").dataset.id;
-    addMenu.classList.remove("hidden");
-
-    const target = transactions.find((res) => res.id == id);
-    menuAmount.value = target.amount;
-    menuCategory.value = target.category;
-    menuType.value = target.type;
-
-    saveBtn.addEventListener("click", () => {
-      addMenu.classList.add("hidden");
-      if (
-        menuAmount.value !== "" ||
-        menuCategory.value !== "" ||
-        menuType.value !== ""
-      ) {
-        target.amount = menuAmount.value;
-        target.type = menuType.value;
-        target.category = menuCategory.value;
-      }
-    });
+  editTransaction() {
+    saveBtn.removeEventListener("click", this.saveBtnAdd);
+    saveBtn.addEventListener("click", (e) => this.saveBtnEdit(e));
     cancelBtn.addEventListener("click", () => {
       addMenu.classList.add("hidden");
       menuAmount.value = menuCategory.value = menuType.value = "";
@@ -114,23 +96,53 @@ class Transaction {
   addTransaction() {
     addMenu.classList.toggle("hidden");
     menuAmount.value = menuCategory.value = menuType.value = "";
-    saveBtn.addEventListener("click", () => {
-      addMenu.classList.add("hidden");
-      const t = new Transaction(
-        menuAmount.value,
-        menuCategory.value,
-        menuType.value
-      );
-      if (t.amount !== "" && t.category !== "" && t.type !== "") {
-        transactions.push(t);
-        t.renderTransaction();
-      }
-      menuAmount.value = menuCategory.value = menuType.value = "";
-    });
+
+    saveBtn.removeEventListener("click", this.saveBtnEdit);
+    saveBtn.addEventListener("click", this.saveBtnAdd);
     cancelBtn.addEventListener("click", () => {
       addMenu.classList.add("hidden");
       menuAmount.value = menuCategory.value = menuType.value = "";
     });
+  }
+
+  saveBtnEdit(e) {
+    const id = e.target.closest("tr").dataset.id;
+    addMenu.classList.remove("hidden");
+
+    const target = transactions.find((res) => res.id == id);
+    menuAmount.value = target.amount;
+    menuCategory.value = target.category;
+    menuType.value = target.type;
+    addMenu.classList.add("hidden");
+    if (
+      menuAmount.value !== "" &&
+      menuCategory.value !== "" &&
+      menuType.value !== ""
+    ) {
+      target.amount = menuAmount.value;
+      target.type = menuType.value;
+      target.category = menuCategory.value;
+    }
+    transactionRow.innerHTML = "";
+
+    transactions.forEach((res) => {
+      res.renderTransaction();
+    });
+  }
+
+  saveBtnAdd() {
+    const t = new Transaction(
+      menuAmount.value,
+      menuCategory.value,
+      menuType.value
+    );
+    console.log(t);
+
+    if (t.amount !== "" && t.category !== "" && t.type !== "") {
+      transactions.push(t);
+      t.renderTransaction();
+    }
+    menuAmount.value = menuCategory.value = menuType.value = "";
   }
 
   calcAndDisplayAmounts() {
@@ -159,9 +171,9 @@ class Transaction {
     });
 
     if (transactions.length === 0) {
-      balanceAmount.textContent = 0.00;
-      creditAmount.textContent = 0.00;
-      expenseAmount.textContent = 0.00;
+      balanceAmount.textContent = 0.0;
+      creditAmount.textContent = 0.0;
+      expenseAmount.textContent = 0.0;
     }
   }
 }
