@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   </head>
   <body>
     <div class="screen">
@@ -62,7 +63,7 @@
           </div>
         </div>
       </div>
-      <div class="dash-main hidden">
+      <div class="dash-main">
         <div class="pri-head">Welcome back, Jappanjot Singh</div>
         <div class="sec-head">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -71,37 +72,37 @@
           <div class="box balance">
             <div class="heading">Balance</div>
             <div class="amount">₹ 9999</div>
-            <div class="percent percent-green">+18%</div>
+            <div class="percent percent-green"></div>
           </div>
           <div class="box credit">
             <div class="heading">Credit</div>
             <div class="amount">₹ 9999</div>
-            <div class="percent percent-green">+18%</div>
+            <div class="percent percent-green"></div>
           </div>
           <div class="box expense">
             <div class="heading">Expense</div>
             <div class="amount">₹ 9999</div>
-            <div class="percent percent-red">+18%</div>
+            <div class="percent percent-red"></div>
           </div>
         </div>
         <div class="graphs">
           <div class="bar">
             <div class="head">
               <div class="heading">Expenses Stats</div>
-              <div class="filter">▼ This week</div>
+              <!-- <div class="filter">▼ This week</div> -->
             </div>
-            <div class="visual"></div>
+            <div id="barGraph"></div>
           </div>
           <div class="pie">
             <div class="head">
               <div class="heading">Expenses by Categories</div>
-              <div class="filter">▼ This week</div>
+              <!-- <div class="filter">▼ This week</div> -->
             </div>
-            <div class="visual"></div>
+            <div id="pieChart"></div>
           </div>
         </div>
       </div>
-      <div class="transaction-main">
+      <div class="transaction-main hidden">
         <div class="head">
           <div class="heading">Transaction</div>
           <div class="filters">
@@ -127,6 +128,29 @@
               <option value="others">Others</option>
             </select>
             <select name="Type" id="add-type">
+              <option value="">Type</option>
+              <option value="credit">Credit</option>
+              <option value="expense">Expense</option>
+            </select>
+          </div>
+          <div class="btns">
+            <div class="save-btn">Save</div>
+            <div class="cancel-btn">Cancel</div>
+          </div>
+        </div>
+        <div class="edit-transaction hidden">
+          <div class="details">
+            <input type="number" id="edit-amount" placeholder="Amount (₹)" />
+            <select name="Category" id="edit-category">
+              <option value="">Category</option>
+              <option value="savings">Savings</option>
+              <option value="grocery">Grocery</option>
+              <option value="travel">Travel</option>
+              <option value="rent">Rent</option>
+              <option value="gromming">Grooming</option>
+              <option value="others">Others</option>
+            </select>
+            <select name="Type" id="edit-type">
               <option value="">Type</option>
               <option value="credit">Credit</option>
               <option value="expense">Expense</option>

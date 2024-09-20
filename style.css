@@ -13,6 +13,7 @@ html {
   width: vw;
   height: 100vh;
   display: flex;
+  overflow: hidden;
 }
 
 .side-bar {
@@ -265,7 +266,8 @@ html {
   border-bottom: 1px solid #78787849;
 }
 
-.add-transaction {
+.add-transaction,
+.edit-transaction {
   margin: 2.4rem;
   margin-left: 1.2rem;
   display: flex;
@@ -275,44 +277,52 @@ html {
   border-radius: 1.2rem;
   background-color: #fefefd;
 }
-.add-transaction .details {
+.add-transaction .details,
+.edit-transaction .details {
   display: flex;
   gap: 1.4rem;
 }
 
-.add-transaction .details select {
+.add-transaction .details select,
+.edit-transaction .details select {
   background-color: #fff;
 }
-#add-amount {
+#add-amount,
+#edit-amount {
   width: 40%;
   padding: 0.8rem;
   border: 1px solid #78787849;
   border-radius: 4px;
 }
-#add-category {
+#add-category,
+#edit-category {
   width: 30%;
   padding: 0.8rem;
   border: 1px solid #78787849;
   border-radius: 4px;
 }
-#add-type {
+#add-type,
+#edit-type {
   width: 30%;
   padding: 0.8rem;
   border: 1px solid #78787849;
   border-radius: 4px;
 }
-#add-category option {
+#add-category option,
+#edit-category option {
   padding: 0.8rem;
   border: 1px solid #78787849;
   border-radius: 4px;
 }
-#add-type option {
+#add-type option,
+#edit-type option {
   padding: 0.8rem;
   border: 1px solid #78787849;
   border-radius: 4px;
 }
 
-.add-transaction .btns {
+.add-transaction .btns,
+.edit-transaction .btns {
   align-self: flex-end;
   display: flex;
   gap: 1.4rem;
@@ -343,6 +353,16 @@ html {
 .cancel-btn:hover,
 .cancel-btn:active {
   background-color: #a89c9c;
+}
+
+#barGraph {
+  width: 90%;
+  height: 90%;
+}
+
+#pieChart {
+  width: 90%;
+  height: 90%;
 }
 
 .hidden {
