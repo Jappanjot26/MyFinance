@@ -40,19 +40,17 @@ transactionTab.addEventListener("click", () => {
 
 const transactionRow = document.querySelector(".transactions table tbody");
 
-let transactions = [];
+let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
 class Transaction {
-  constructor(amount, category, type) {
+  constructor(amount, category, type, id = null) {
     let now = new Date();
     this.date = this.formatDate(now);
-    this.id = now.getTime();
+    this.id = id || now.getTime();
     this.amount = amount;
     this.category = category;
     this.type = type;
     this.check = false;
-    transactionRow.addEventListener("click", this.editTransaction.bind(this));
-    addBtn.addEventListener("click", this.addTransaction);
-    removeBtn.addEventListener("click", this.removeTransaction);
   }
 
   formatDate(anyDate) {
@@ -94,11 +92,10 @@ class Transaction {
     });
 
     this.calcAndDisplayAmounts();
+    this.updateGraphs();
   }
 
-  editTransaction(e) {
-    let id = e.target.closest("tr").dataset.id;
-
+  editTransaction(id) {
     addMenu.classList.add("hidden");
     editMenu.classList.remove("hidden");
 
@@ -126,6 +123,8 @@ class Transaction {
         res.renderTransaction();
       });
       editMenu.classList.add("hidden");
+      this.updateLocalStorage();
+      this.updateGraphs();
     };
 
     cancelEdit = () => {
@@ -142,7 +141,7 @@ class Transaction {
     addMenu.classList.toggle("hidden");
     menuAmount.value = menuCategory.value = menuType.value = "";
 
-    saveBtnAdd.addEventListener("click", function () {
+    saveBtnAdd.addEventListener("click", () => {
       const t = new Transaction(
         menuAmount.value,
         menuCategory.value,
@@ -155,6 +154,8 @@ class Transaction {
       }
       menuAmount.value = menuCategory.value = menuType.value = "";
       addMenu.classList.add("hidden");
+      this.updateLocalStorage();
+      this.updateGraphs();
     });
 
     cancelBtnAdd.addEventListener("click", () => {
@@ -181,7 +182,6 @@ class Transaction {
   removeTransaction() {
     addMenu.classList.add("hidden");
     editMenu.classList.add("hidden");
-    let c = 0;
     transactions = transactions.filter((res) => res.check === false);
     transactionRow.innerHTML = "";
 
@@ -194,82 +194,112 @@ class Transaction {
       creditAmount.textContent = 0.0;
       expenseAmount.textContent = 0.0;
     }
+    this.updateLocalStorage();
+    this.updateGraphs();
+  }
+
+  getWeeklyExpenses() {
+    const today = new Date();
+    const weekStart = today.getDate() - today.getDay();
+    const weeklyExpenses = Array(7).fill(0);
+
+    const startOfWeek = new Date(
+      today.setFullYear(today.getFullYear(), today.getMonth(), weekStart)
+    );
+    const endOfWeek = new Date(
+      today.setFullYear(today.getFullYear(), today.getMonth(), weekStart + 7)
+    );
+
+    transactions.forEach((trans) => {
+      if (trans.type === "expense") {
+        const [day, month, year] = trans.date.split("/").map(Number);
+        const transDate = new Date(year, month - 1, day);
+
+        if (transDate >= startOfWeek && transDate < endOfWeek) {
+          const dayIndex = transDate.getDay();
+          weeklyExpenses[dayIndex] += Number(trans.amount);
+        }
+      }
+    });
+
+    return weeklyExpenses;
+  }
+
+  getCategoryExpenses() {
+    const categories = ["grocery", "travel", "rent", "grooming", "others"];
+    const categoryExpenses = Array(categories.length).fill(0);
+
+    const today = new Date();
+    const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+
+    transactions.forEach((trans) => {
+      if (trans.type === "expense") {
+        const [day, month, year] = trans.date.split("/").map(Number);
+        const transDate = new Date(year, month - 1, day);
+
+        if (transDate >= weekStart) {
+          const categoryIndex = categories.indexOf(trans.category);
+          if (categoryIndex !== -1) {
+            categoryExpenses[categoryIndex] += Number(trans.amount);
+          }
+        }
+      }
+    });
+
+    return categoryExpenses;
+  }
+
+  updateGraphs() {
+    const barData = [
+      {
+        x: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        y: this.getWeeklyExpenses(),
+        type: "bar",
+        marker: {
+          color: "#26B2EC",
+        },
+      },
+    ];
+
+    const pieData = [
+      {
+        values: this.getCategoryExpenses(),
+        labels: ["Grocery", "Travel", "Rent", "Grooming", "Others"],
+        type: "pie",
+        textinfo: "percent",
+        insidetextorientation: "radial",
+        marker: {
+          colors: ["#FF6384", "#36A2EB", "#FFCE56"],
+        },
+      },
+    ];
+
+    const layout = {
+      margin: { t: 50, l: 35, r: 0, b: 20 },
+      responsive: true,
+    };
+
+    Plotly.react("barGraph", barData, layout);
+    Plotly.react("pieChart", pieData, layout);
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
   }
 }
 
-const t1 = new Transaction(170, "savings", "credit");
-transactions.push(t1);
-for (let i = 0; i < 100000000; i++);
-const t2 = new Transaction(145, "grocery", "expense");
-transactions.push(t2);
-for (let i = 0; i < 100000000; i++);
-const t3 = new Transaction(256, "grooming", "expense");
-t3.date = "19/09/2024";
-transactions.push(t3);
-for (let i = 0; i < 100000000; i++);
-const t4 = new Transaction(15, "rent", "expense");
-t4.date = "19/09/2024";
-transactions.push(t4);
+transactions = transactions.map(
+  (t) => new Transaction(t.amount, t.category, t.type, t.id)
+);
 
 transactions.forEach((res) => {
   res.renderTransaction();
 });
 
-const getWeeklyExpenses = (transactions) => {
-  const today = new Date();
-  const weekStart = today.getDate() - today.getDay(); 
-  const weeklyExpenses = Array(7).fill(0);
-
-  
-  const startOfWeek = new Date(
-    today.setFullYear(today.getFullYear(), today.getMonth(), weekStart)
-  );
-  const endOfWeek = new Date(
-    today.setFullYear(today.getFullYear(), today.getMonth(), weekStart + 7)
-  );
-
-  transactions.forEach((trans) => {
-    if (trans.type === "expense") {
-      const [day, month, year] = trans.date.split("/").map(Number);
-      const transDate = new Date(year, month - 1, day); 
-
-      
-      if (transDate >= startOfWeek && transDate < endOfWeek) {
-        const dayIndex = transDate.getDay();
-        weeklyExpenses[dayIndex] += Number(trans.amount);
-      }
-    }
-  });
-
-  return weeklyExpenses;
-};
-
-const getCategoryExpenses = (transactions) => {
-  const categories = ["grocery", "travel", "rent", "grooming", "others"];
-  const categoryExpenses = Array(categories.length).fill(0);
-
-  const today = new Date();
-  const weekStart = new Date(today.setDate(today.getDate() - today.getDay()));
-
-  transactions.forEach((trans) => {
-    const [day, month, year] = trans.date.split("/").map(Number);
-    const transDate = new Date(year, month - 1, day);
-
-    if (transDate >= weekStart) {
-      const categoryIndex = categories.indexOf(trans.category);
-      if (categoryIndex !== -1) {
-        categoryExpenses[categoryIndex] += Number(trans.amount);
-      }
-    }
-  });
-
-  return categoryExpenses;
-};
-
-const barData = [
+const initialBarData = [
   {
     x: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    y: getWeeklyExpenses(transactions),
+    y: transactions.length ? transactions[0].getWeeklyExpenses() : [],
     type: "bar",
     marker: {
       color: "#26B2EC",
@@ -277,10 +307,10 @@ const barData = [
   },
 ];
 
-const pieData = [
+const initialPieData = [
   {
-    values: getCategoryExpenses(transactions),
-    labels: ["Grocery", "Travel", "Rent", "Gromming", "Others"],
+    values: transactions.length ? transactions[0].getCategoryExpenses() : [],
+    labels: ["Grocery", "Travel", "Rent", "Grooming", "Others"],
     type: "pie",
     textinfo: "percent",
     insidetextorientation: "radial",
@@ -291,14 +321,32 @@ const pieData = [
 ];
 
 const layout = {
-  margin: { t: 50, l: 35, r: 0, b: 20 }, 
-  responsive: true, 
+  margin: { t: 50, l: 35, r: 0, b: 20 },
+  responsive: true,
 };
 
-Plotly.newPlot("barGraph", barData, layout);
-Plotly.newPlot("pieChart", pieData, layout);
+Plotly.newPlot("barGraph", initialBarData, layout);
+Plotly.newPlot("pieChart", initialPieData, layout);
 
 window.onresize = function () {
   Plotly.Plots.resize("barGraph");
   Plotly.Plots.resize("pieChart");
 };
+
+addBtn.addEventListener("click", () => {
+  const t = new Transaction();
+  t.addTransaction();
+});
+
+transactionRow.addEventListener("click", (e) => {
+  const id = e.target.closest("tr").dataset.id;
+  if (id) {
+    const t = new Transaction();
+    t.editTransaction(id);
+  }
+});
+
+removeBtn.addEventListener("click", () => {
+  const t = new Transaction();
+  t.removeTransaction();
+});
