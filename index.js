@@ -226,7 +226,7 @@ class Transaction {
   }
 
   getCategoryExpenses() {
-    const categories = ["grocery", "travel", "rent", "grooming", "others"];
+    const categories = ["grocery", "travel", "rent", "gromming", "others"];
     const categoryExpenses = Array(categories.length).fill(0);
 
     const today = new Date();
@@ -264,12 +264,15 @@ class Transaction {
     const pieData = [
       {
         values: this.getCategoryExpenses(),
-        labels: ["Grocery", "Travel", "Rent", "Grooming", "Others"],
+        labels: ["Grocery", "Travel", "Rent", "Gromming", "Others"],
         type: "pie",
         textinfo: "percent",
         insidetextorientation: "radial",
         marker: {
           colors: ["#FF6384", "#36A2EB", "#FFCE56"],
+        },
+        textfont: {
+          size: 8,
         },
       },
     ];
@@ -310,12 +313,15 @@ const initialBarData = [
 const initialPieData = [
   {
     values: transactions.length ? transactions[0].getCategoryExpenses() : [],
-    labels: ["Grocery", "Travel", "Rent", "Grooming", "Others"],
+    labels: ["Grocery", "Travel", "Rent", "Gromming", "Others"],
     type: "pie",
     textinfo: "percent",
     insidetextorientation: "radial",
     marker: {
       colors: ["#FF6384", "#36A2EB", "#FFCE56"],
+    },
+    textfont: {
+      size: 8,
     },
   },
 ];
@@ -349,4 +355,16 @@ transactionRow.addEventListener("click", (e) => {
 removeBtn.addEventListener("click", () => {
   const t = new Transaction();
   t.removeTransaction();
+});
+
+const mobileNav = document.querySelector("#mobile-nav-logo");
+
+mobileNav.addEventListener("change", () => {
+  if (mobileNav.value === "transactions") {
+    transactionMenu.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+  } else {
+    transactionMenu.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+  }
 });

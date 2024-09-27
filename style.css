@@ -185,6 +185,7 @@ html {
 
 .transaction-main {
   width: 82%;
+  overflow: scroll;
 }
 .transaction-main .head {
   margin: 2.4rem;
@@ -363,6 +364,101 @@ html {
 #pieChart {
   width: 90%;
   height: 90%;
+}
+
+.mobile-nav {
+  position: absolute;
+  display: none;
+}
+
+.mobile-nav-logo {
+}
+
+@media (max-width: 769px) {
+  html {
+    font-size: 51%;
+  }
+  #barGraph {
+    width: 80%;
+    height: 65%;
+  }
+
+  #pieChart {
+    width: 90%;
+    height: 72%;
+  }
+}
+@media (max-width: 426px) {
+  html {
+    font-size: 40%;
+  }
+  .mobile-nav {
+    display: block;
+  }
+  .side-bar {
+    display: none;
+  }
+  .graphs {
+    flex-direction: column;
+    gap: 6.4rem;
+  }
+  .pie {
+    width: 1vw;
+    height: 50rem;
+  }
+  .bar {
+    width: 1vw;
+    height: 50rem;
+  }
+  #barGraph {
+    width: 150%;
+    height: 100%;
+  }
+
+  #pieChart {
+    width: 150%;
+    height: 100%;
+  }
+  .dash-main {
+    width: 100%;
+    overflow-y: scroll;
+  }
+}
+@media (max-width: 426px) {
+  html {
+    font-size: 35%;
+  }
+  .mobile-nav {
+    display: block;
+  }
+  .side-bar {
+    display: none;
+  }
+  .graphs {
+    flex-direction: column;
+    gap: 6.4rem;
+  }
+  .pie {
+    width: 1vw;
+    height: 50rem;
+  }
+  .bar {
+    width: 1vw;
+    height: 50rem;
+  }
+  #barGraph {
+    width: 150%;
+    height: 100%;
+  }
+
+  #pieChart {
+    width: 150%;
+    height: 100%;
+  }
+  .dash-main {
+    width: 100%;
+    overflow-y: scroll;
+  }
 }
 
 .hidden {
