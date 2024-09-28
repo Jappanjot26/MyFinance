@@ -43,7 +43,7 @@ const transactionRow = document.querySelector(".transactions table tbody");
 let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
 class Transaction {
-  constructor(amount, category, type, id = null) {
+  constructor(amount, category, type, id = null, date = null) {
     let now = new Date();
     this.date = this.formatDate(now);
     this.id = id || now.getTime();
@@ -266,13 +266,13 @@ class Transaction {
         values: this.getCategoryExpenses(),
         labels: ["Grocery", "Travel", "Rent", "Gromming", "Others"],
         type: "pie",
-        textinfo: "percent",
+        textinfo: "label",
         insidetextorientation: "radial",
         marker: {
           colors: ["#FF6384", "#36A2EB", "#FFCE56"],
         },
         textfont: {
-          size: 8,
+          size: 6,
         },
       },
     ];
@@ -280,6 +280,7 @@ class Transaction {
     const layout = {
       margin: { t: 50, l: 35, r: 0, b: 20 },
       responsive: true,
+      showlegend: false,
     };
 
     Plotly.react("barGraph", barData, layout);
@@ -292,7 +293,7 @@ class Transaction {
 }
 
 transactions = transactions.map(
-  (t) => new Transaction(t.amount, t.category, t.type, t.id)
+  (t) => new Transaction(t.amount, t.category, t.type, t.id, t.date)
 );
 
 transactions.forEach((res) => {
@@ -315,7 +316,7 @@ const initialPieData = [
     values: transactions.length ? transactions[0].getCategoryExpenses() : [],
     labels: ["Grocery", "Travel", "Rent", "Gromming", "Others"],
     type: "pie",
-    textinfo: "percent",
+    textinfo: "label",
     insidetextorientation: "radial",
     marker: {
       colors: ["#FF6384", "#36A2EB", "#FFCE56"],
@@ -329,7 +330,9 @@ const initialPieData = [
 const layout = {
   margin: { t: 50, l: 35, r: 0, b: 20 },
   responsive: true,
+  showlegend: false,
 };
+
 
 Plotly.newPlot("barGraph", initialBarData, layout);
 Plotly.newPlot("pieChart", initialPieData, layout);
@@ -357,14 +360,27 @@ removeBtn.addEventListener("click", () => {
   t.removeTransaction();
 });
 
-const mobileNav = document.querySelector("#mobile-nav-logo");
+const mobileNav = document.querySelector(".mobile-nav button");
+const mobileNavBtns = document.querySelector(".mobile-nav .links");
+const mobileDash = document.querySelector(".mobile-nav .links .dash");
+const mobileTransaction = document.querySelector(
+  ".mobile-nav .links .transaction"
+);
 
-mobileNav.addEventListener("change", () => {
-  if (mobileNav.value === "transactions") {
-    transactionMenu.classList.remove("hidden");
-    dashboard.classList.add("hidden");
-  } else {
-    transactionMenu.classList.add("hidden");
-    dashboard.classList.remove("hidden");
-  }
+mobileNav.addEventListener("click", () => {
+  mobileNavBtns.classList.toggle("hidden");
 });
+
+mobileDash.addEventListener("click", () => {
+  transactionMenu.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  mobileNavBtns.classList.add("hidden");
+});
+
+mobileTransaction.addEventListener("click", () => {
+  transactionMenu.classList.remove("hidden");
+  dashboard.classList.add("hidden");
+  mobileNavBtns.classList.add("hidden");
+});
+
+console.log(transactions);
