@@ -1,40 +1,49 @@
 # MyFinance - Personal Finance Manager
 
+MyFinance is a personal finance management tool designed to help users track and visualize their financial transactions. This application allows users to log transactions, categorize expenses, and analyze spending patterns using interactive visualizations.
 
+## Features
 
-## Project Overview
+- **Transaction Logging**: Easily log your financial transactions with predefined categories such as:
+  - Food
+  - Rent
+  - Travel
+  - Savings
+  - Grocery
+  - Others
 
-**MyFinance** is a personal finance management tool designed to help users track and visualize their financial transactions. Whether it's keeping a log of expenses, tagging and categorizing transactions, or generating insightful reports, MyFinance aims to make managing personal finances intuitive and effective.
-
-## Key Features (In Development)
-
-1. **Transaction Logging**  
-   - Users can manually log their transactions.
-   - Transactions can also be categorized into predefined categories like Food, Clothing, Housing, Utilities, etc.
-
-2. **Graphical Insights**  
-   - **Expenses by Weekdays**: A graph to help visualize how much a user is spending on different days of the week.
-   - **Category-based Pie Chart**: A pie chart that shows the breakdown of expenses by category (e.g., Food, Clothing, Entertainment) for a clear understanding of spending habits.
-
-3. **Tags & Categories**  
-   - Users can add custom tags to transactions for better filtering and tracking.
-   - Standard categories will be provided for more organized reporting and visualization.
+- **Expense Visualization**:
+  - **Bar Graph**: View expenses for each weekday to analyze spending patterns over the week.
+  - **Pie Chart**: Visualize spending distribution across different categories using Plotly.js.
 
 ## Technologies Used
 
-- **HTML**: For structuring the layout of the application.
-- **CSS**: For designing and styling the interface to create a user-friendly experience.
-- **JavaScript**: To implement the logic for managing transactions, updating tags/categories, and rendering the graphs and charts.
+- HTML
+- CSS
+- JavaScript
+- Plotly.js for data visualization
 
-## Project Scope
+## Installation
 
-This project is currently in the **development phase**. The core functionality of transaction logging, categorization, and graphical visualization is being built using HTML, CSS, and JavaScript. Future improvements may include more advanced analytics, integration with banking systems, and automated categorization of expenses.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Jappanjot26/MyFinance.git
+   ```
 
-## Planned Graphical Visualizations
+2. Navigate to the project directory:
+   ```bash
+   cd MyFinance
+   ```
 
-- **Expenses by Weekdays**: Bar or line graph showing total expenses incurred on each day of the week.
-- **Expenses by Category**: Pie chart offering a breakdown of total expenses by categories such as Food, Clothing, Housing, etc.
+3. Open `index.html` in your web browser.
 
----
+## Usage
 
-Stay tuned for updates as MyFinance evolves into a robust personal finance tool designed to simplify your financial life!
+1. **Add a Transaction**:
+   - Enter the amount, select a category, and add a description.
+   - Click on the "Add Transaction" button to log the transaction.
+
+2. **View Charts**:
+   - The bar graph will display your expenses for each weekday.
+   - The pie chart will show the breakdown of your expenses by category.
+
