@@ -45,7 +45,7 @@ let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 class Transaction {
   constructor(amount, category, type, id = null, date = null) {
     let now = new Date();
-    this.date = this.formatDate(now);
+    this.date = date ? date : this.formatDate(now);
     this.id = id || now.getTime();
     this.amount = amount;
     this.category = category;
@@ -332,7 +332,6 @@ const layout = {
   responsive: true,
   showlegend: false,
 };
-
 
 Plotly.newPlot("barGraph", initialBarData, layout);
 Plotly.newPlot("pieChart", initialPieData, layout);
